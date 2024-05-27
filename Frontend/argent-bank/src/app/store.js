@@ -7,6 +7,6 @@ export const store = configureStore({
   reducer: {
     login: loginReducer,
     signup: signupReducer,
-    profile: profileReducer
-  }
+    profile: profileReducer,
+  },
 });
