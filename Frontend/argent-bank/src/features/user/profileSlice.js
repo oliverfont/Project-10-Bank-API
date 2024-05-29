@@ -2,14 +2,14 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 export const fetchProfile = createAsyncThunk('user/fetchProfile', async (token) => {
-  const response = await axios.get('http://localhost:3001/user/profile', {
+  const response = await axios.get('http://localhost:3001/api/v1/user/profile', { // Mettez l'URL correcte ici
     headers: { Authorization: `Bearer ${token}` }
   });
   return response.data;
 });
 
 export const updateProfile = createAsyncThunk('user/updateProfile', async ({ token, profileData }) => {
-  const response = await axios.put('http://localhost:3001/user/profile', profileData, {
+  const response = await axios.put('http://localhost:3001/api/v1/user/profile', profileData, { // Mettez l'URL correcte ici
     headers: { Authorization: `Bearer ${token}` }
   });
   return response.data;
