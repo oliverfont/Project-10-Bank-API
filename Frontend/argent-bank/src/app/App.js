@@ -7,7 +7,6 @@ import Footer from '../components/layout/Footer';
 import Home from '../pages/Home';
 import Login from '../pages/Login';
 import Profile from '../pages/Profile';
-import PrivateRoute from '../components/PrivateRoute';
 
 function App() {
   return (

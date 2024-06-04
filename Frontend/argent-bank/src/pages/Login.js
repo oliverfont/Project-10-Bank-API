@@ -22,7 +22,7 @@ function Login() {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    dispatch(login({ email: username, password }));
+    dispatch(login({ email: username, password })); // Assurez-vous que le backend attend ces clés
   };
 
   useEffect(() => {
