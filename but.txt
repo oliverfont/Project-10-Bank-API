@@ -1,0 +1,6 @@
+1- comprendre redux
+2- integrer html css react
+3- integrer react redux
+4- pour se connecter avec loginSlice
+5- modifier info avec profilSlice
+6- swagger : 

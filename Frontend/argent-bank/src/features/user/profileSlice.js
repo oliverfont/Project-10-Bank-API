@@ -2,17 +2,14 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 export const fetchProfile = createAsyncThunk('user/fetchProfile', async (token) => {
-  const response = await axios.get('http://localhost:3001/api/v1/user/profile', { // Mettez l'URL correcte ici
-    headers: { Authorization: `Bearer ${token}` }
-  });
-  return response.data;
-});
-
-export const updateProfile = createAsyncThunk('user/updateProfile', async ({ token, profileData }) => {
-  const response = await axios.put('http://localhost:3001/api/v1/user/profile', profileData, { // Mettez l'URL correcte ici
-    headers: { Authorization: `Bearer ${token}` }
-  });
-  return response.data;
+  try {
+    const response = await axios.get('http://localhost:3001/user/profile', {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    return response.data;
+  } catch (error) {
+    throw Error('Failed to fetch profile');
+  }
 });
 
 const profileSlice = createSlice({
@@ -33,17 +30,6 @@ const profileSlice = createSlice({
         state.profile = action.payload;
       })
       .addCase(fetchProfile.rejected, (state, action) => {
-        state.status = 'failed';
-        state.error = action.error.message;
-      })
-      .addCase(updateProfile.pending, (state) => {
-        state.status = 'loading';
-      })
-      .addCase(updateProfile.fulfilled, (state, action) => {
-        state.status = 'succeeded';
-        state.profile = action.payload;
-      })
-      .addCase(updateProfile.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
       });
