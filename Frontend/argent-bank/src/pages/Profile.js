@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProfile } from '../features/user/profileSlice';
 import { Navigate } from 'react-router-dom';
+import '../index.css'; // Assurez-vous d'importer vos styles personnalisés
 
 function Profile() {
   const dispatch = useDispatch();
@@ -25,9 +26,9 @@ function Profile() {
   }
 
   return (
-    <main className="main bg-dark">
+    <main className="main bg-custom">
       <div className="header">
-        <h1>Welcome back<br />{profile ? `${profile.firstName} ${profile.lastName}` : ''}!</h1>
+        <h1>Welcome back<br />{profile ? `${profile.firstName}` : ''}!</h1>
         <button className="edit-button">Edit Name</button>
       </div>
       <h2 className="sr-only">Accounts</h2>

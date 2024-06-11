@@ -17,8 +17,8 @@ body {
   flex: 1;
 }
 
-.bg-dark {
-  background-color: #12002b;
+.bg-custom {
+  background-color: #12002b !important;
 }
 
 .sr-only {

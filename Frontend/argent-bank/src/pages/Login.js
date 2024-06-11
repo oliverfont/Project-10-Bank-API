@@ -1,56 +1,53 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../features/user/loginSlice';
-import { useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
+import '../index.css'; // Assurez-vous d'importer vos styles personnalisés
 
 function Login() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const isLoading = useSelector(state => state.login.isLoading);
-  const error = useSelector(state => state.login.error);
   const isAuthenticated = useSelector(state => state.login.isAuthenticated);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  const handleUsernameChange = (e) => {
-    setUsername(e.target.value);
-  };
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
-
-  const handleLogin = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(login({ email: username, password })); // Assurez-vous que le backend attend ces clés
+    dispatch(login({ email, password }));
   };
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      navigate('/profile');
-    }
-  }, [isAuthenticated, navigate]);
+  if (isAuthenticated) {
+    return <Navigate to="/profile" />;
+  }
 
   return (
-    <main className="main bg-dark">
+    <main className="main bg-custom">
       <section className="sign-in-content">
         <i className="fa fa-user-circle sign-in-icon"></i>
         <h1>Sign In</h1>
-        <form onSubmit={handleLogin}>
+        <form onSubmit={handleSubmit}>
           <div className="input-wrapper">
             <label htmlFor="username">Username</label>
-            <input type="text" id="username" value={username} onChange={handleUsernameChange} />
+            <input
+              type="text"
+              id="username"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
           </div>
           <div className="input-wrapper">
             <label htmlFor="password">Password</label>
-            <input type="password" id="password" value={password} onChange={handlePasswordChange} />
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </div>
           <div className="input-remember">
             <input type="checkbox" id="remember-me" />
             <label htmlFor="remember-me">Remember me</label>
           </div>
-          <button type="submit" className="sign-in-button" disabled={isLoading}>Sign In</button>
-          {error && <p style={{ color: 'red' }}>{error}</p>}
+          <button type="submit" className="sign-in-button">Sign In</button>
         </form>
       </section>
     </main>

@@ -2,14 +2,10 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 export const fetchProfile = createAsyncThunk('user/fetchProfile', async (token) => {
-  try {
-    const response = await axios.get('http://localhost:3001/user/profile', {
-      headers: { Authorization: `Bearer ${token}` }
-    });
-    return response.data;
-  } catch (error) {
-    throw Error('Failed to fetch profile');
-  }
+  const response = await axios.get('http://localhost:3001/api/v1/user/profile', {
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  return response.data.body;
 });
 
 const profileSlice = createSlice({
@@ -17,7 +13,7 @@ const profileSlice = createSlice({
   initialState: {
     profile: null,
     status: 'idle',
-    error: null
+    error: null,
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -33,7 +29,7 @@ const profileSlice = createSlice({
         state.status = 'failed';
         state.error = action.error.message;
       });
-  }
+  },
 });
 
 export default profileSlice.reducer;

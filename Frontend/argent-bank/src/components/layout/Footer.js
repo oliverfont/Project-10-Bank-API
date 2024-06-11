@@ -1,9 +1,10 @@
 import React from 'react';
+import '../../index.css';
 
 function Footer() {
   return (
     <footer className="footer">
-      <p className="footer-text">Copyright 2020 Argent Bank</p>
+      <p className="mb-0">Copyright 2020 Argent Bank</p>
     </footer>
   );
 }

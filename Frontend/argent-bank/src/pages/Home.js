@@ -2,6 +2,7 @@ import React from 'react';
 import chatIcon from '../assets/img/icon-chat.png';
 import moneyIcon from '../assets/img/icon-money.png';
 import securityIcon from '../assets/img/icon-security.png';
+import '../index.css'; // Assurez-vous d'importer vos styles personnalisés
 
 function Home() {
   return (

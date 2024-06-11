@@ -18,9 +18,18 @@ const loginSlice = createSlice({
     token: null,
     isLoading: false,
     error: null,
-    isAuthenticated: false
+    isAuthenticated: false,
   },
-  reducers: {},
+  reducers: {
+    logout: (state) => {
+      state.token = null;
+      state.isAuthenticated = false;
+      localStorage.removeItem('token');
+    },
+    setIsAuthenticated: (state, action) => {
+      state.isAuthenticated = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(login.pending, (state) => {
@@ -37,7 +46,9 @@ const loginSlice = createSlice({
         state.error = action.payload.message || 'Failed to login';
         state.isAuthenticated = false;
       });
-  }
+  },
 });
+
+export const { logout, setIsAuthenticated } = loginSlice.actions;
 
 export default loginSlice.reducer;
