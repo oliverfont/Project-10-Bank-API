@@ -1,7 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchProfile } from '../features/user/profileSlice';
+import { fetchProfile, updateProfile } from '../features/user/profileSlice';
 import { Navigate } from 'react-router-dom';
+import ProfileHeader from '../components/ProfileHeader';
+import EditProfile from '../components/EditProfile';
 import '../index.css';
 
 function Profile() {
@@ -10,6 +12,7 @@ function Profile() {
   const profile = useSelector(state => state.profile.profile);
   const status = useSelector(state => state.profile.status);
   const isAuthenticated = useSelector(state => state.login.isAuthenticated);
+  const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
     if (isAuthenticated && token) {
@@ -25,12 +28,35 @@ function Profile() {
     return <div>Loading...</div>;
   }
 
+  if (!profile) {
+    return <div>No profile data found</div>;
+  }
+
+  const handleEdit = () => {
+    setIsEditing(true);
+  };
+
+  const handleSave = (firstName, lastName) => {
+    dispatch(updateProfile({ token, profileData: { firstName, lastName } }));
+    setIsEditing(false);
+  };
+
+  const handleCancel = () => {
+    setIsEditing(false);
+  };
+
   return (
     <main className="main bg-custom">
-      <div className="header">
-        <h1>Welcome back<br />{profile ? profile.firstName : ''}!</h1>
-        <button className="edit-button">Edit Name</button>
-      </div>
+      {isEditing ? (
+        <EditProfile
+          firstName={profile?.firstName || ''}
+          lastName={profile?.lastName || ''}
+          onSave={handleSave}
+          onCancel={handleCancel}
+        />
+      ) : (
+        <ProfileHeader firstName={profile?.firstName || ''} onEdit={handleEdit} />
+      )}
       <h2 className="sr-only">Accounts</h2>
       <section className="account">
         <div className="account-content-wrapper">

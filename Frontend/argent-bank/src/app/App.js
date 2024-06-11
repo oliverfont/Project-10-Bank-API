@@ -4,7 +4,7 @@ import Login from '../pages/Login';
 import Home from '../pages/Home';
 import Profile from '../pages/Profile';
 import Footer from '../components/layout/Footer';
-import Nav from '../components/layout/Header'
+import Nav from '../components/layout/Nav'
 
 function App() {
   return (
