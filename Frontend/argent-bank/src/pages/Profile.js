@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProfile, updateProfile } from '../features/user/profileSlice';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import ProfileHeader from '../components/ProfileHeader';
 import EditProfile from '../components/EditProfile';
 import '../index.css';
 
 function Profile() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const token = useSelector(state => state.login.token);
   const profile = useSelector(state => state.profile.profile);
   const status = useSelector(state => state.profile.status);
@@ -45,17 +46,21 @@ function Profile() {
     setIsEditing(false);
   };
 
+  const handleViewTransactions = () => {
+    navigate('/transactions');
+  };
+
   return (
     <main className="main bg-custom">
       {isEditing ? (
         <EditProfile
-          firstName={profile?.firstName || ''}
-          lastName={profile?.lastName || ''}
+          firstName={profile.firstName}
+          lastName={profile.lastName}
           onSave={handleSave}
           onCancel={handleCancel}
         />
       ) : (
-        <ProfileHeader firstName={profile?.firstName || ''} onEdit={handleEdit} />
+        <ProfileHeader firstName={profile.firstName} onEdit={handleEdit} />
       )}
       <h2 className="sr-only">Accounts</h2>
       <section className="account">
@@ -65,7 +70,7 @@ function Profile() {
           <p className="account-amount-description">Available Balance</p>
         </div>
         <div className="account-content-wrapper cta">
-          <button className="transaction-button">View transactions</button>
+          <button className="transaction-button" onClick={handleViewTransactions}>View transactions</button>
         </div>
       </section>
       <section className="account">
@@ -75,7 +80,7 @@ function Profile() {
           <p className="account-amount-description">Available Balance</p>
         </div>
         <div className="account-content-wrapper cta">
-          <button className="transaction-button">View transactions</button>
+          <button className="transaction-button" onClick={handleViewTransactions}>View transactions</button>
         </div>
       </section>
       <section className="account">
@@ -85,7 +90,7 @@ function Profile() {
           <p className="account-amount-description">Current Balance</p>
         </div>
         <div className="account-content-wrapper cta">
-          <button className="transaction-button">View transactions</button>
+          <button className="transaction-button" onClick={handleViewTransactions}>View transactions</button>
         </div>
       </section>
     </main>
