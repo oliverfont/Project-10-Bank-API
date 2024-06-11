@@ -3,9 +3,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../features/user/loginSlice';
 import logo from '../../assets/img/argentBankLogo.png';
-import '../../index.css'; // Assurez-vous d'importer vos styles personnalisés
+import '../../index.css';
 
-function Header() {
+function Nav() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isAuthenticated = useSelector(state => state.login.isAuthenticated);
@@ -32,7 +32,7 @@ function Header() {
             <Link className="main-nav-item" to="/profile">
               <i className="fa fa-user-circle"></i> {profile ? profile.firstName : 'Profile'}
             </Link>
-            <button className="main-nav-item btn" onClick={handleLogout}>
+            <button className="main-nav-item" onClick={handleLogout}>
               <i className="fa fa-sign-out"></i> Sign Out
             </button>
           </>
@@ -46,4 +46,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default Nav;

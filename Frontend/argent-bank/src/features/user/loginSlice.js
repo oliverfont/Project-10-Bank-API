@@ -12,6 +12,11 @@ export const login = createAsyncThunk('user/login', async (userData, thunkAPI) =
   }
 });
 
+export const logout = createAsyncThunk('user/logout', async (_, thunkAPI) => {
+  localStorage.removeItem('token');
+  return {};
+});
+
 const loginSlice = createSlice({
   name: 'login',
   initialState: {
@@ -20,16 +25,7 @@ const loginSlice = createSlice({
     error: null,
     isAuthenticated: false,
   },
-  reducers: {
-    logout: (state) => {
-      state.token = null;
-      state.isAuthenticated = false;
-      localStorage.removeItem('token');
-    },
-    setIsAuthenticated: (state, action) => {
-      state.isAuthenticated = action.payload;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(login.pending, (state) => {
@@ -45,10 +41,12 @@ const loginSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload.message || 'Failed to login';
         state.isAuthenticated = false;
+      })
+      .addCase(logout.fulfilled, (state) => {
+        state.token = null;
+        state.isAuthenticated = false;
       });
   },
 });
-
-export const { logout, setIsAuthenticated } = loginSlice.actions;
 
 export default loginSlice.reducer;

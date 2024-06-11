@@ -1,8 +1,10 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-export const fetchProfile = createAsyncThunk('user/fetchProfile', async (token) => {
-  const response = await axios.get('http://localhost:3001/api/v1/user/profile', {
+export const fetchProfile = createAsyncThunk('user/fetchProfile', async (_, thunkAPI) => {
+  const state = thunkAPI.getState();
+  const token = state.login.token;
+  const response = await axios.post('http://localhost:3001/api/v1/user/profile', null, {
     headers: { Authorization: `Bearer ${token}` }
   });
   return response.data.body;

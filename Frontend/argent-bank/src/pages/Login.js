@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../features/user/loginSlice';
 import { Navigate } from 'react-router-dom';
-import '../index.css'; // Assurez-vous d'importer vos styles personnalisés
+import '../index.css';
 
 function Login() {
   const dispatch = useDispatch();

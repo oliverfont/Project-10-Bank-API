@@ -4,13 +4,13 @@ import Login from '../pages/Login';
 import Home from '../pages/Home';
 import Profile from '../pages/Profile';
 import Footer from '../components/layout/Footer';
-import Header from '../components/layout/Header';
+import Nav from '../components/layout/Header'
 
 function App() {
   return (
     <Router>
       <div className="d-flex flex-column min-vh-100">
-        <Header />
+        <Nav />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
