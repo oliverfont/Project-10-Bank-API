@@ -20,7 +20,6 @@ const mockTransactions = [
     category: 'Food',
     notes: ''
   },
-  // Ajoutez d'autres transactions ici
 ];
 
 function Transactions() {
