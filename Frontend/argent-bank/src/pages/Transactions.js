@@ -43,7 +43,7 @@ function Transactions() {
   };
 
   return (
-    <div className="container">
+    <div className="main">
       <div className="balance-section bg-light p-4 text-center">
         <h2>Argent Bank Checking (x8349)</h2>
         <p className="balance">$2,082.79</p>

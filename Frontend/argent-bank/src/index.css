@@ -6,6 +6,10 @@ html {
   color: #2c3e50;
 }
 
+* {
+  box-sizing: content-box !important;
+}
+
 body {
   margin: 0;
   display: flex;
@@ -126,6 +130,44 @@ body {
 .features {
   display: flex;
   flex-direction: column;
+}
+
+
+.save-button {
+  width: 100px;
+  padding: 8px;
+  font-size: 1.1rem;
+  font-weight: bold !important;
+  margin-top: 1rem;
+  border-color: #00bc77 !important;
+  background-color: #00bc77 !important;
+  color: #fff !important;
+  border-radius: 0 !important;
+  margin: 10px;
+}
+
+.cancel-button {
+  display: block;
+  width: 100px;
+  padding: 8px;
+  font-size: 1.1rem;
+  font-weight: bold !important;
+  margin-top: 1rem;
+  border-color: #d9534f !important;
+  background-color: #d9534f !important;
+  color: #fff !important;
+  border-radius: 0 !important;
+  margin: 10px;
+}
+
+.edit-input {
+  margin: 10px;
+  padding: 5px;
+}
+
+.edit-profile-buttons {
+  display: flex;
+  justify-content: center;
 }
 
 @media (min-width: 920px) {
@@ -261,7 +303,7 @@ body {
 
 .header {
   color: #fff;
-  margin-bottom: 2rem;
+  margin: 2rem;
 }
 
 .transaction-button {

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '../index.css';
 
 function EditProfile({ firstName: initialFirstName, lastName: initialLastName, onSave, onCancel }) {
   const [firstName, setFirstName] = useState(initialFirstName);
@@ -9,11 +10,26 @@ function EditProfile({ firstName: initialFirstName, lastName: initialLastName, o
   };
 
   return (
-    <div className="header">
-      <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
-      <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} />
-      <button className="save-button" onClick={handleSave}>Save</button>
-      <button className="cancel-button" onClick={onCancel}>Cancel</button>
+    <div className="header text-center">
+      <h1>Welcome back</h1>
+      <div className="edit-profile-inputs">
+        <input
+          type="text"
+          className="edit-input"
+          value={firstName}
+          onChange={(e) => setFirstName(e.target.value)}
+        />
+        <input
+          type="text"
+          className="edit-input"
+          value={lastName}
+          onChange={(e) => setLastName(e.target.value)}
+        />
+      </div>
+      <div className="edit-profile-buttons">
+        <button className="btn-primary save-button" onClick={handleSave}>Save</button>
+        <button className="btn-secondary cancel-button" onClick={onCancel}>Cancel</button>
+      </div>
     </div>
   );
 }
