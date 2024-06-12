@@ -46,21 +46,21 @@ function Profile() {
     setIsEditing(false);
   };
 
-  const handleViewTransactions = () => {
-    navigate('/transactions');
+  const viewTransactions = (accountType) => {
+    navigate('/transactions', { state: { accountType } });
   };
 
   return (
     <main className="main bg-custom">
       {isEditing ? (
         <EditProfile
-          firstName={profile.firstName}
-          lastName={profile.lastName}
+          firstName={profile?.firstName || ''}
+          lastName={profile?.lastName || ''}
           onSave={handleSave}
           onCancel={handleCancel}
         />
       ) : (
-        <ProfileHeader firstName={profile.firstName} onEdit={handleEdit} />
+        <ProfileHeader firstName={profile?.firstName || ''} onEdit={handleEdit} />
       )}
       <h2 className="sr-only">Accounts</h2>
       <section className="account">
@@ -70,7 +70,9 @@ function Profile() {
           <p className="account-amount-description">Available Balance</p>
         </div>
         <div className="account-content-wrapper cta">
-          <button className="transaction-button" onClick={handleViewTransactions}>View transactions</button>
+          <button className="transaction-button" onClick={() => viewTransactions('checking')}>
+            View transactions
+          </button>
         </div>
       </section>
       <section className="account">
@@ -80,17 +82,21 @@ function Profile() {
           <p className="account-amount-description">Available Balance</p>
         </div>
         <div className="account-content-wrapper cta">
-          <button className="transaction-button" onClick={handleViewTransactions}>View transactions</button>
+          <button className="transaction-button" onClick={() => viewTransactions('savings')}>
+            View transactions
+          </button>
         </div>
       </section>
       <section className="account">
         <div className="account-content-wrapper">
-          <h3 className="account-title">Argent Bank Credit Card (x8349)</h3>
+          <h3 className="account-title">Argent Bank Credit Card (x5201)</h3>
           <p className="account-amount">$184.30</p>
           <p className="account-amount-description">Current Balance</p>
         </div>
         <div className="account-content-wrapper cta">
-          <button className="transaction-button" onClick={handleViewTransactions}>View transactions</button>
+          <button className="transaction-button" onClick={() => viewTransactions('credit')}>
+            View transactions
+          </button>
         </div>
       </section>
     </main>

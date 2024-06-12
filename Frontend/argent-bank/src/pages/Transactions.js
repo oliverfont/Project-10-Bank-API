@@ -1,56 +1,47 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import React from 'react';
+import { useLocation } from 'react-router-dom';
+import '../index.css';
+import Dropdown from '../components/Dropdown';
 
-const mockTransactions = [
-  {
-    date: 'June 20th, 2020',
-    description: 'Golden Sun Bakery',
-    amount: '$5.00',
-    balance: '$2082.79',
-    type: 'Electronic',
-    category: 'Food',
-    notes: ''
-  },
-  {
-    date: 'June 20th, 2020',
-    description: 'Golden Sun Bakery',
-    amount: '$10.00',
-    balance: '$2087.79',
-    type: 'Electronic',
-    category: 'Food',
-    notes: ''
-  },
-];
+const transactionsData = {
+  checking: [
+    { date: 'June 20th, 2020', description: 'Golden Sun Bakery', amount: '$5.00', balance: '$2,082.79', type: 'Electronic', category: 'Food', notes: '' },
+    { date: 'June 20th, 2020', description: 'Golden Sun Bakery', amount: '$10.00', balance: '$2,087.79', type: 'Electronic', category: 'Food', notes: '' },
+    { date: 'June 20th, 2020', description: 'Golden Sun Bakery', amount: '$20.00', balance: '$2,097.79', type: 'Electronic', category: 'Food', notes: '' },
+    { date: 'June 20th, 2020', description: 'Golden Sun Bakery', amount: '$30.00', balance: '$2,117.79', type: 'Electronic', category: 'Food', notes: '' },
+    { date: 'June 20th, 2020', description: 'Golden Sun Bakery', amount: '$40.00', balance: '$2,147.79', type: 'Electronic', category: 'Food', notes: '' },
+    { date: 'June 20th, 2020', description: 'Golden Sun Bakery', amount: '$50.00', balance: '$2,187.79', type: 'Electronic', category: 'Food', notes: '' },
+  ],
+  savings: [
+    { date: 'June 20th, 2020', description: 'Golden Sun Bakery', amount: '$10.00', balance: '$10,928.42', type: 'Electronic', category: 'Food', notes: '' },
+    { date: 'June 20th, 2020', description: 'Golden Sun Bakery', amount: '$20.00', balance: '$10,948.42', type: 'Electronic', category: 'Food', notes: '' },
+    { date: 'June 20th, 2020', description: 'Golden Sun Bakery', amount: '$30.00', balance: '$10,978.42', type: 'Electronic', category: 'Food', notes: '' },
+    { date: 'June 20th, 2020', description: 'Golden Sun Bakery', amount: '$40.00', balance: '$11,018.42', type: 'Electronic', category: 'Food', notes: '' },
+    { date: 'June 20th, 2020', description: 'Golden Sun Bakery', amount: '$50.00', balance: '$11,068.42', type: 'Electronic', category: 'Food', notes: '' },
+  ],
+  credit: [
+    { date: 'June 20th, 2020', description: 'Golden Sun Bakery', amount: '$20.00', balance: '$164.30', type: 'Electronic', category: 'Food', notes: '' },
+    { date: 'June 20th, 2020', description: 'Golden Sun Bakery', amount: '$30.00', balance: '$194.30', type: 'Electronic', category: 'Food', notes: '' },
+    { date: 'June 20th, 2020', description: 'Golden Sun Bakery', amount: '$40.00', balance: '$234.30', type: 'Electronic', category: 'Food', notes: '' },
+    { date: 'June 20th, 2020', description: 'Golden Sun Bakery', amount: '$50.00', balance: '$284.30', type: 'Electronic', category: 'Food', notes: '' },
+  ],
+};
 
 function Transactions() {
-  const profile = useSelector((state) => state.profile.profile);
-  const [transactions, setTransactions] = useState(mockTransactions);
-  const [editIdx, setEditIdx] = useState(null);
-
-  const handleEdit = (index) => {
-    setEditIdx(index);
-  };
-
-  const handleSave = (index) => {
-    // Logic to save the updated transaction
-    setEditIdx(null);
-  };
-
-  const handleChange = (e, index, field) => {
-    const newTransactions = [...transactions];
-    newTransactions[index][field] = e.target.value;
-    setTransactions(newTransactions);
-  };
+  const location = useLocation();
+  const { accountType } = location.state || 'checking';
+  const transactions = transactionsData[accountType];
 
   return (
-    <div className="main">
-      <div className="balance-section bg-light p-4 text-center">
-        <h2>Argent Bank Checking (x8349)</h2>
-        <p className="balance">$2,082.79</p>
-        <p>Available Balance</p>
+    <main className="main bg-custom">
+      <div className="header">
+        <p>Argent Bank {accountType.charAt(0).toUpperCase() + accountType.slice(1)} (x8349)</p>
+        <p className="account-amount">{transactions[0].balance}</p>
+        <p className="account-amount-description">Available Balance</p>
       </div>
-      <div className="transactions-table">
-        <table className="table">
+      <section className="transactions">
+        <h2 className="sr-only">Transactions</h2>        
+        <table>
           <thead>
             <tr>
               <th>Date</th>
@@ -61,52 +52,12 @@ function Transactions() {
           </thead>
           <tbody>
             {transactions.map((transaction, index) => (
-              <React.Fragment key={index}>
-                <tr>
-                  <td>{transaction.date}</td>
-                  <td>{transaction.description}</td>
-                  <td>{transaction.amount}</td>
-                  <td>{transaction.balance}</td>
-                  <td>
-                    <button onClick={() => handleEdit(index)}>
-                      <i className="fa fa-pencil"></i>
-                    </button>
-                  </td>
-                </tr>
-                {editIdx === index && (
-                  <tr>
-                    <td colSpan="5">
-                      <div className="transaction-details">
-                        <p>Transaction Type: {transaction.type}</p>
-                        <p>
-                          Category:
-                          <input
-                            type="text"
-                            value={transaction.category}
-                            onChange={(e) => handleChange(e, index, 'category')}
-                          />
-                          <button onClick={() => handleSave(index)}>
-                            Save
-                          </button>
-                        </p>
-                        <p>
-                          Notes:
-                          <input
-                            type="text"
-                            value={transaction.notes}
-                            onChange={(e) => handleChange(e, index, 'notes')}
-                          />
-                        </p>
-                      </div>
-                    </td>
-                  </tr>
-                )}
-              </React.Fragment>
+              <Dropdown key={index} transaction={transaction} />
             ))}
           </tbody>
         </table>
-      </div>
-    </div>
+      </section>
+    </main>
   );
 }
 
