@@ -201,6 +201,7 @@ body {
   margin-bottom: 1rem;
   padding: 1rem;
   background-color: #fff;
+  color: black;
 }
 
 .transaction-summary {
@@ -214,17 +215,22 @@ body {
 }
 
 .transaction-details {
-  margin-top: 1rem;
+  background-color: white;
+  color: black;
+  margin: -20px 0 10px 0;
 }
 
 .transaction-edit {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
+  padding: 5px;
 }
 
 .transaction-edit label {
   display: flex;
   align-items: center;
+  margin: 10px -5px;
 }
 
 .transaction-edit select,

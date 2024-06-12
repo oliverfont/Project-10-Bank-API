@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import '../index.css';
 import Dropdown from '../components/Dropdown';
 
+
 const transactionsData = {
   checking: [
     { date: 'June 20th, 2020', description: 'Golden Sun Bakery', amount: '$5.00', balance: '$2,082.79', type: 'Electronic', category: 'Food', notes: '' },
@@ -29,13 +30,13 @@ const transactionsData = {
 
 function Transactions() {
   const location = useLocation();
-  const { accountType } = location.state || 'checking';
+  const { accountType, accountId } = location.state || { accountType: 'checking', accountId: '8349' };
   const transactions = transactionsData[accountType];
 
   return (
     <main className="main bg-custom">
       <div className="header">
-        <p>Argent Bank {accountType.charAt(0).toUpperCase() + accountType.slice(1)} (x8349)</p>
+        <p>Argent Bank {accountType.charAt(0).toUpperCase() + accountType.slice(1)} (x{accountId})</p>
         <p className="account-amount">{transactions[0].balance}</p>
         <p className="account-amount-description">Available Balance</p>
       </div>
@@ -52,7 +53,7 @@ function Transactions() {
           </thead>
           <tbody>
             {transactions.map((transaction, index) => (
-              <Dropdown key={index} transaction={transaction} />
+              <Dropdown key={index} transaction={transaction} accountType={accountType} index={index} />
             ))}
           </tbody>
         </table>

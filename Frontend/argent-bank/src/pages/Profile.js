@@ -46,8 +46,8 @@ function Profile() {
     setIsEditing(false);
   };
 
-  const viewTransactions = (accountType) => {
-    navigate('/transactions', { state: { accountType } });
+  const viewTransactions = (accountType, accountId) => {
+    navigate('/transactions', { state: { accountType, accountId } });
   };
 
   return (
@@ -70,9 +70,7 @@ function Profile() {
           <p className="account-amount-description">Available Balance</p>
         </div>
         <div className="account-content-wrapper cta">
-          <button className="transaction-button" onClick={() => viewTransactions('checking')}>
-            View transactions
-          </button>
+          <button className="transaction-button" onClick={() => viewTransactions('checking', '8349')}>View transactions</button>
         </div>
       </section>
       <section className="account">
@@ -82,21 +80,17 @@ function Profile() {
           <p className="account-amount-description">Available Balance</p>
         </div>
         <div className="account-content-wrapper cta">
-          <button className="transaction-button" onClick={() => viewTransactions('savings')}>
-            View transactions
-          </button>
+          <button className="transaction-button" onClick={() => viewTransactions('savings', '6712')}>View transactions</button>
         </div>
       </section>
       <section className="account">
         <div className="account-content-wrapper">
-          <h3 className="account-title">Argent Bank Credit Card (x5201)</h3>
+          <h3 className="account-title">Argent Bank Credit Card (x8349)</h3>
           <p className="account-amount">$184.30</p>
           <p className="account-amount-description">Current Balance</p>
         </div>
         <div className="account-content-wrapper cta">
-          <button className="transaction-button" onClick={() => viewTransactions('credit')}>
-            View transactions
-          </button>
+          <button className="transaction-button" onClick={() => viewTransactions('credit', '8349')}>View transactions</button>
         </div>
       </section>
     </main>
