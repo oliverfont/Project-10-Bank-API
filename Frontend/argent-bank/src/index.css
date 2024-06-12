@@ -25,6 +25,12 @@ body {
   background-color: #12002b !important;
 }
 
+.container {
+  max-width: 100% !important;
+  margin: 0 !important;
+  width: 100% !important;
+}
+
 .sr-only {
   border: 0 !important;
   clip: rect(1px, 1px, 1px, 1px) !important; /* 1 */
@@ -53,6 +59,10 @@ body {
 
 .main-nav a.router-link-exact-active {
   color: #42b983;
+}
+
+.main-nav.navbar.navbar-expand-lg {
+  justify-content: space-around;
 }
 
 .main-nav-item {
@@ -259,6 +269,7 @@ tr {
 
 table {
   width: 100%;
+  margin-bottom: 20px;
 }
 
 .cellule {
