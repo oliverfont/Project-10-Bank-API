@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { updateTransaction } from '../features/user/profileSlice';
+import { updateTransaction } from '../features/transactions/transactionsSlice';
 
 function Dropdown({ transaction, accountType, index }) {
   const dispatch = useDispatch();
@@ -35,6 +35,7 @@ function Dropdown({ transaction, accountType, index }) {
                 <label>
                   Category:
                   <select value={category} onChange={(e) => setCategory(e.target.value)}>
+                    <option value="_">_</option>
                     <option value="Food">Food</option>
                     <option value="Transport">Transport</option>
                     <option value="Entertainment">Entertainment</option>
