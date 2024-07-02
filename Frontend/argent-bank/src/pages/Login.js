@@ -7,14 +7,17 @@ import '../index.css';
 function Login() {
   const dispatch = useDispatch();
   const isAuthenticated = useSelector(state => state.login.isAuthenticated);
+  const error = useSelector(state => state.login.error);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  // Gestionnaire de soumission du formulaire
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(login({ email, password }));
   };
 
+  // Rediriger l'utilisateurice vers la page de profil s'iel est authentifié·e
   if (isAuthenticated) {
     return <Navigate to="/profile" />;
   }
@@ -47,6 +50,8 @@ function Login() {
             <input type="checkbox" id="remember-me" />
             <label htmlFor="remember-me">Remember me</label>
           </div>
+          {/* Afficher le message d'erreur si disponible */}
+          {error && <div className="error-message">{error}</div>}
           <button type="submit" className="sign-in-button">Sign In</button>
         </form>
       </section>

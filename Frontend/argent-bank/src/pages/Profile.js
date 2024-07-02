@@ -9,43 +9,44 @@ import '../index.css';
 function Profile() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  
+  // Récupération des données du store Redux
   const token = useSelector(state => state.login.token);
   const profile = useSelector(state => state.profile.profile);
-  const status = useSelector(state => state.profile.status);
   const isAuthenticated = useSelector(state => state.login.isAuthenticated);
+  
+  // État local pour gérer le mode édition
   const [isEditing, setIsEditing] = useState(false);
 
+  // Effectuer une action après le rendu du composant
   useEffect(() => {
     if (isAuthenticated && token) {
       dispatch(fetchProfile(token));
     }
   }, [isAuthenticated, token, dispatch]);
 
+  // Redirection vers la page de connexion si l'utilisateur n'est pas authentifié
   if (!isAuthenticated) {
     return <Navigate to="/login" />;
   }
 
-  if (status === 'loading') {
-    return <div>Loading...</div>;
-  }
-
-  if (!profile) {
-    return <div>No profile data found</div>;
-  }
-
+  // Gérer le passage en mode édition
   const handleEdit = () => {
     setIsEditing(true);
   };
 
+  // Gérer la sauvegarde des modifications du profil
   const handleSave = (firstName, lastName) => {
     dispatch(updateProfile({ token, profileData: { firstName, lastName } }));
     setIsEditing(false);
   };
 
+  // Annuler le mode édition
   const handleCancel = () => {
     setIsEditing(false);
   };
 
+  // Naviguer vers la page des transactions
   const viewTransactions = (accountType, accountId) => {
     navigate('/transactions', { state: { accountType, accountId } });
   };

@@ -1,22 +1,29 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+// Thunk asynchrone pour gérer la connexion de l'utilisateur
 export const login = createAsyncThunk('user/login', async (userData, thunkAPI) => {
   try {
+    // Appel API pour la connexion
     const response = await axios.post('http://localhost:3001/api/v1/user/login', userData);
     const { token } = response.data.body;
+    // Stocker le jeton JWT dans le stockage local
     localStorage.setItem('token', token);
     return { token };
   } catch (error) {
-    return thunkAPI.rejectWithValue(error.response.data);
+    // Retourner le message d'erreur
+    return thunkAPI.rejectWithValue(error.response.data.message || 'An error occurred');
   }
 });
 
+// Thunk asynchrone pour gérer la déconnexion de l'utilisateur
 export const logout = createAsyncThunk('user/logout', async (_, thunkAPI) => {
+  // Supprimer le jeton JWT du stockage local
   localStorage.removeItem('token');
   return {};
 });
 
+// Création du slice de Redux pour la connexion
 const loginSlice = createSlice({
   name: 'login',
   initialState: {
@@ -39,7 +46,7 @@ const loginSlice = createSlice({
       })
       .addCase(login.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = action.payload.message || 'Failed to login';
+        state.error = action.payload || 'Failed to login';
         state.isAuthenticated = false;
       })
       .addCase(logout.fulfilled, (state) => {
