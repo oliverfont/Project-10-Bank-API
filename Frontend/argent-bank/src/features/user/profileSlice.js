@@ -47,15 +47,7 @@ const profileSlice = createSlice({
     status: 'idle', // 'idle', 'loading', 'succeeded', 'failed'
     error: null,
   },
-  reducers: {
-    // Réducteur pour mettre à jour une transaction spécifique dans le profil utilisateur
-    updateTransaction: (state, action) => {
-      const { accountType, index, updatedTransaction } = action.payload;
-      if (state.profile[accountType]) {
-        state.profile[accountType][index] = updatedTransaction;
-      }
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       // Cas de récupération du profil utilisateur
